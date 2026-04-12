@@ -1,6 +1,6 @@
 # 🌍 Save the Earth
 
-Save the Earth is a browser-based educational game that teaches children how to sort trash and protect the environment in a fun and interactive way.
+Save the Earth is a mobile educational game app that teaches children how to sort trash and protect the environment in a fun and interactive way.
 
 Players control a character and catch falling items, collecting only the correct type of waste (glass, plastic, paper, or organic). The game combines simple mechanics with environmental awareness to create an engaging learning experience.
 
