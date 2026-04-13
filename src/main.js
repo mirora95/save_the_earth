@@ -29,6 +29,8 @@ const PLAYER_START_X = 42.5;
 const CATCH_ZONE_TOP = 78;
 const CATCH_ZONE_BOTTOM = 94;
 const ITEM_COLLISION_WIDTH = 6;
+const SERVICE_WORKER_URL = new URL('../service-worker.js', import.meta.url);
+const APP_SCOPE_URL = new URL('../', import.meta.url);
 const root = document.getElementById('app');
 
 const state = {
@@ -569,6 +571,22 @@ function renderApp() {
   if (state.phase === 'playing') syncPlayingUI();
 }
 
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+  if (!/^https?:$/.test(window.location.protocol)) return;
+
+  window.addEventListener('load', async () => {
+    try {
+      // Register from the project root so the worker scope matches GitHub Pages at /save_the_earth/.
+      await navigator.serviceWorker.register(SERVICE_WORKER_URL.pathname, {
+        scope: APP_SCOPE_URL.pathname,
+      });
+    } catch (error) {
+      console.error('Service worker registration failed:', error);
+    }
+  });
+}
+
 root.addEventListener('click', (event) => {
   const actionTarget = event.target.closest('[data-action]');
   if (!actionTarget) return;
@@ -606,3 +624,4 @@ root.addEventListener('pointermove', handlePointerMove);
 window.addEventListener('keydown', handleKeyboardMove);
 
 renderApp();
+registerServiceWorker();
